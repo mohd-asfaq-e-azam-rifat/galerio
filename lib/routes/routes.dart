@@ -2,6 +2,8 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:galerio/ui/album/album_page.dart';
+import 'package:galerio/ui/album_details/album_details_page.dart';
 import 'package:galerio/ui/request_permission/request_permission_page.dart';
 import 'package:galerio/ui/splash_screen/splash_screen.dart';
 
@@ -10,12 +12,16 @@ class Routes {
 
   static const root = "galerio://";
   static const requestPermission = "galerio://request-permission";
+  static const album = "galerio://album";
+  static const albumDetails = "galerio://album/details";
 }
 
 List<String> get routes {
   return [
     Routes.root,
     Routes.requestPermission,
+    Routes.album,
+    Routes.albumDetails,
   ];
 }
 
@@ -54,6 +60,16 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case Routes.requestPermission:
       return buildRoute(
         builder: (_) => const RequestPermissionPage(),
+      );
+
+    case Routes.album:
+      return buildRoute(
+        builder: (_) => const AlbumPage(),
+      );
+
+    case Routes.albumDetails:
+      return buildRoute(
+        builder: (_) => const AlbumDetailsPage(),
       );
 
     default:

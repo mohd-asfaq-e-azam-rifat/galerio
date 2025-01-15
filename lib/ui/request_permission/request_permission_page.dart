@@ -10,7 +10,7 @@ class RequestPermissionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(),
+      appBar: AppBar(automaticallyImplyLeading: false),
       body: SizedBox(
         width: double.maxFinite,
         child: Column(
