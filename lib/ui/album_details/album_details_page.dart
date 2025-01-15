@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:galerio/base/navigation/navigation.dart';
 import 'package:galerio/constants.dart';
+import 'package:galerio/routes/routes.dart';
 
 class AlbumDetailsPage extends StatelessWidget {
   const AlbumDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    final appBarTheme = Theme.of(context).appBarTheme;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -23,6 +28,12 @@ class AlbumDetailsPage extends StatelessWidget {
         ),
         title: Text("Recent"),
         titleTextStyle: textStyleAppBarTitle2,
+        systemOverlayStyle: appBarTheme.systemOverlayStyle?.copyWith(
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarDividerColor: Colors.transparent,
+          systemNavigationBarContrastEnforced: false,
+        ),
       ),
       body: GridView.builder(
         physics: BouncingScrollPhysics(),
@@ -35,16 +46,21 @@ class AlbumDetailsPage extends StatelessWidget {
         itemCount: 60,
         padding: EdgeInsets.symmetric(horizontal: 12.0),
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.withValues(alpha: 0.8),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  "https://placebear.com/${600 + index}/${600 + index}",
+          return GestureDetector(
+            onTap: () {
+              context.to(Routes.photoPreviewer);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.8),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "https://placebear.com/${600 + index}/${600 + index}",
+                  ),
                 ),
+                borderRadius: BorderRadius.circular(5.0),
               ),
-              borderRadius: BorderRadius.circular(5.0),
             ),
           );
         },

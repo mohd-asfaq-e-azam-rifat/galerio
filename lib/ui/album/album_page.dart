@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:galerio/base/navigation/navigation.dart';
 import 'package:galerio/constants.dart';
 import 'package:galerio/routes/routes.dart';
@@ -10,11 +11,20 @@ class AlbumPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    final appBarTheme = Theme.of(context).appBarTheme;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text("Albums"),
         titleTextStyle: textStyleAppBarTitle1,
+        systemOverlayStyle: appBarTheme.systemOverlayStyle?.copyWith(
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+          systemNavigationBarDividerColor: Colors.transparent,
+          systemNavigationBarContrastEnforced: false,
+        ),
       ),
       body: GridView.builder(
         physics: BouncingScrollPhysics(),
