@@ -20,6 +20,7 @@ class SplashScreen extends StatelessWidget {
       value: _getBloc(context),
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        appBar: AppBar(),
         body: SizedBox(
           width: double.maxFinite,
           child: Column(

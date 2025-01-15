@@ -2,17 +2,20 @@ import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:galerio/ui/request_permission/request_permission_page.dart';
 import 'package:galerio/ui/splash_screen/splash_screen.dart';
 
 class Routes {
   static String initialRoute = Routes.root;
 
   static const root = "galerio://";
+  static const requestPermission = "galerio://request-permission";
 }
 
 List<String> get routes {
   return [
     Routes.root,
+    Routes.requestPermission,
   ];
 }
 
@@ -46,6 +49,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case Routes.root:
       return buildRoute(
         builder: (_) => const SplashScreen(),
+      );
+
+    case Routes.requestPermission:
+      return buildRoute(
+        builder: (_) => const RequestPermissionPage(),
       );
 
     default:

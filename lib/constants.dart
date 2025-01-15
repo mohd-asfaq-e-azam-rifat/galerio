@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 const colorPrimary = Colors.black;
 const colorLightGreen = Color(0xFF66FFB6);
 const colorText1 = Colors.black;
+const colorText2 = Color(0xFF212020);
+const colorText3 = Color(0xFF676767);
 const colorDisabled1 = Color(0xFFE0E0E0);
 const colorDisabled2 = Color(0xFFAAA9A9);
 
@@ -11,12 +13,20 @@ const colorDisabled2 = Color(0xFFAAA9A9);
 const fontFamilyRoboto = "Roboto";
 
 // Text Styles
-const textStyleSample = TextStyle(
+const textStyleBodyTitle = TextStyle(
   fontFamily: fontFamilyRoboto,
-  color: colorText1,
-  fontWeight: FontWeight.w600,
-  fontSize: 18.0,
-  height: 1.2,
+  color: colorText2,
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+  height: 1.172,
+);
+
+const textStyleBodySubtitle = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText3,
+  fontWeight: FontWeight.w400,
+  fontSize: 14.0,
+  height: 1.172,
 );
 
 abstract class CustomHttpHeader {
