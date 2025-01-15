@@ -40,6 +40,14 @@ const textStyleAppBarTitle1 = TextStyle(
   height: 1.172,
 );
 
+const textStyleAppBarTitle2 = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText1,
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+  height: 1.172,
+);
+
 const textStyleAlbumTitle = TextStyle(
   fontFamily: fontFamilyRoboto,
   color: colorText5,
