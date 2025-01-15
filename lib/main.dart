@@ -46,6 +46,15 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: onGenerateRoute,
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
+            builder: (context, child) {
+              // Restrict device font size to override our app fonts
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: TextScaler.noScaling,
+                ),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
           );
         },
       ),
