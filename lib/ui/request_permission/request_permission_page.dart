@@ -1,10 +1,19 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galerio/base/app_config/app_config_bloc.dart';
+import 'package:galerio/base/app_config/app_config_event.dart';
 import 'package:galerio/base/widget/button/base_filled_button.dart';
 import 'package:galerio/constants.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RequestPermissionPage extends StatelessWidget {
-  const RequestPermissionPage({super.key});
+  final AndroidDeviceInfo _androidInfo;
+
+  const RequestPermissionPage(this._androidInfo, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +55,41 @@ class RequestPermissionPage extends StatelessWidget {
                 left: 40.0,
                 right: 40.0,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                final requiredPermission = getRequiredPermission();
+                if (await requiredPermission.status.isPermanentlyDenied) {
+                  openAppSettings();
+                } else {
+                  final updatedStatus = await requiredPermission.request();
+
+                  if (updatedStatus.isGranted || updatedStatus.isLimited) {
+                    final bloc = context.read<AppConfigBloc>();
+                    bloc.add(UserAuthStateUpdated());
+                  } else {
+                    // Do nothing
+                  }
+                }
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  Permission getRequiredPermission() {
+    Permission requiredPermission;
+
+    if (Platform.isAndroid == true) {
+      if (_androidInfo.version.sdkInt <= 32) {
+        requiredPermission = Permission.storage;
+      } else {
+        requiredPermission = Permission.photos;
+      }
+    } else {
+      requiredPermission = Permission.photos;
+    }
+
+    return requiredPermission;
   }
 }
