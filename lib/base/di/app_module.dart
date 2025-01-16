@@ -28,6 +28,13 @@ abstract class AppModule {
   @preResolve
   @injectable
   @singleton
+  Future<AndroidDeviceInfo> get androidInfo async {
+    return DeviceInfoPlugin().androidInfo;
+  }
+
+  @preResolve
+  @injectable
+  @singleton
   Future<AppInfo> get appInfo async {
     final deviceInfoPlugin = DeviceInfoPlugin();
 

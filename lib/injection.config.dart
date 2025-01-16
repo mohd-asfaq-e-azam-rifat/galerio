@@ -8,11 +8,12 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:device_info_plus/device_info_plus.dart' as _i833;
 import 'package:dio/dio.dart' as _i361;
 import 'package:galerio/base/app_config/app_config_bloc.dart' as _i762;
 import 'package:galerio/base/di/app_module.dart' as _i608;
 import 'package:galerio/base/helper/debounce.dart' as _i21;
-import 'package:galerio/data/helper/date_time/date.dart' as _i861;
+import 'package:galerio/data/helper/date_time/date_time_helper.dart' as _i781;
 import 'package:galerio/data/helper/encryption/encryption_helper.dart' as _i159;
 import 'package:galerio/data/helper/network/interceptors.dart' as _i772;
 import 'package:galerio/data/model/local/app_info/app_info.dart' as _i32;
@@ -41,9 +42,13 @@ Future<_i174.GetIt> init(
   final appModule = _$AppModule();
   gh.factory<_i159.EncryptionHelper>(() => _i159.EncryptionHelper());
   gh.factory<_i772.BaseInterceptor>(() => _i772.BaseInterceptor());
-  gh.factory<_i861.DateTimeHelper>(() => _i861.DateTimeHelper());
+  gh.factory<_i781.DateTimeHelper>(() => _i781.DateTimeHelper());
   await gh.factoryAsync<_i792.GetStorage>(
     () => appModule.getStorage,
+    preResolve: true,
+  );
+  await gh.factoryAsync<_i833.AndroidDeviceInfo>(
+    () => appModule.androidInfo,
     preResolve: true,
   );
   await gh.factoryAsync<_i32.AppInfo>(
@@ -67,6 +72,7 @@ Future<_i174.GetIt> init(
   gh.factory<_i857.AuthRepository>(() => _i857.AuthRepository(
         gh<_i57.AuthLocalService>(),
         gh<_i599.AuthRemoteService>(),
+        gh<_i833.AndroidDeviceInfo>(),
       ));
   gh.factory<_i762.AppConfigBloc>(() => _i762.AppConfigBloc(
         gh<_i1021.CommonRepository>(),
