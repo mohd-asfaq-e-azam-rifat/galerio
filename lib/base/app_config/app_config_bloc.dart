@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galerio/base/app_config/app_config_event.dart';
 import 'package:galerio/base/app_config/app_config_state.dart';
-import 'package:galerio/base/helper/async.dart';
 import 'package:galerio/base/state/basic/basic_state.dart';
 import 'package:galerio/data/repository/auth_repository.dart';
 import 'package:galerio/data/repository/common_repository.dart';
@@ -21,7 +20,6 @@ class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
           AppConfigState(
             locale: _commonRepository.getLanguage() ?? const Locale("en"),
             themeMode: _commonRepository.getThemeMode() ?? ThemeMode.light,
-            authState: _authRepository.getUserAuthState(),
           ),
         ) {
     on<AppInitialDataRequested>(_onAppInitialDataRequested);
@@ -44,15 +42,14 @@ class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
       await _commonRepository.storeThemeMode(state.themeMode);
     }
 
-    // This delay is intentional to show progress indicator animation
-    await delay(milliseconds: 1000);
+    final authState = await getUserAuthState();
 
     emit(
       state.copyWith(
         uiState: UiState.successful,
         themeMode: themeMode,
         locale: savedLocale,
-        authState: getUserAuthState(),
+        authState: authState,
       ),
     );
   }
@@ -61,14 +58,16 @@ class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
     UserAuthStateUpdated event,
     Emitter<AppConfigState> emit,
   ) async {
+    final authState = await getUserAuthState();
+
     emit(
       state.copyWith(
-        authState: getUserAuthState(),
+        authState: authState,
       ),
     );
   }
 
-  UserAuthState getUserAuthState() {
+  Future<UserAuthState> getUserAuthState() async {
     return _authRepository.getUserAuthState();
   }
 }

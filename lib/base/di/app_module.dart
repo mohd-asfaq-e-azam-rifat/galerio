@@ -28,6 +28,13 @@ abstract class AppModule {
   @preResolve
   @injectable
   @singleton
+  Future<AndroidDeviceInfo> get androidInfo async {
+    return DeviceInfoPlugin().androidInfo;
+  }
+
+  @preResolve
+  @injectable
+  @singleton
   Future<AppInfo> get appInfo async {
     final deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -111,7 +118,7 @@ AppInfo get appInfo {
 }
 
 String get appFlavor {
-  return String.fromEnvironment(constants.LocalKey.flavor);
+  return String.fromEnvironment(constants.LocalKeys.flavor);
 }
 
 bool get isDevFlavor {
@@ -120,5 +127,5 @@ bool get isDevFlavor {
 }
 
 bool get isProdFlavor {
-  return appFlavor == constants.LocalValue.prod;
+  return appFlavor == constants.LocalValues.prod;
 }

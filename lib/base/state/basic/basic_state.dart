@@ -19,12 +19,12 @@ extension UiStateX on UiState {
   bool get isCancelled => this == UiState.cancelled;
 }
 
-enum UserAuthState { authenticated, unauthenticated }
+enum UserAuthState { authorized, unauthorized }
 
 extension UserAuthStateX on UserAuthState {
-  bool get isAuthenticated => this == UserAuthState.authenticated;
+  bool get isAuthorized => this == UserAuthState.authorized;
 
-  bool get isUnauthenticated => this == UserAuthState.unauthenticated;
+  bool get isUnauthorized => this == UserAuthState.unauthorized;
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

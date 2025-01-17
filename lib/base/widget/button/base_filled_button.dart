@@ -13,6 +13,7 @@ class BaseFilledButton extends StatelessWidget {
   final double? buttonWidth;
   final double? buttonHeight;
   final double? fontSize;
+  final EdgeInsets? margin;
 
   const BaseFilledButton({
     super.key,
@@ -22,9 +23,10 @@ class BaseFilledButton extends StatelessWidget {
     this.backgroundColor = colorLightGreen,
     this.progressColor = colorText1,
     this.isLoading = false,
-    this.buttonWidth,
-    this.buttonHeight,
+    this.buttonWidth = double.maxFinite,
+    this.buttonHeight = 42.0,
     this.fontSize = 16.0,
+    this.margin,
   });
 
   @override
@@ -35,6 +37,7 @@ class BaseFilledButton extends StatelessWidget {
         ? Container(
             width: buttonWidth,
             height: buttonHeight,
+            margin: margin,
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(31.0),
@@ -50,9 +53,10 @@ class BaseFilledButton extends StatelessWidget {
               ),
             ),
           )
-        : SizedBox(
+        : Container(
             width: buttonWidth,
             height: buttonHeight,
+            margin: margin,
             child: ElevatedButton(
               onPressed: onPressed != null
                   ? () {

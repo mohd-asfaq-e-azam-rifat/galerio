@@ -14,7 +14,7 @@ class AppConfigState extends Equatable {
   const AppConfigState({
     required this.locale,
     required this.themeMode,
-    this.authState = UserAuthState.unauthenticated,
+    this.authState = UserAuthState.unauthorized,
     this.uiState = UiState.initial,
     this.message,
   });

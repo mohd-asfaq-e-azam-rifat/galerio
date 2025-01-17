@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 const colorPrimary = Colors.black;
 const colorLightGreen = Color(0xFF66FFB6);
 const colorText1 = Colors.black;
+const colorText2 = Color(0xFF212020);
+const colorText3 = Color(0xFF676767);
+const colorText4 = Color(0xFF363636);
+const colorText5 = Colors.white;
+const colorText6 = Color(0xFFD8D8D8);
 const colorDisabled1 = Color(0xFFE0E0E0);
 const colorDisabled2 = Color(0xFFAAA9A9);
 
@@ -11,12 +16,52 @@ const colorDisabled2 = Color(0xFFAAA9A9);
 const fontFamilyRoboto = "Roboto";
 
 // Text Styles
-const textStyleSample = TextStyle(
+const textStyleBodyTitle = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText2,
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+  height: 1.172,
+);
+
+const textStyleBodySubtitle = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText3,
+  fontWeight: FontWeight.w400,
+  fontSize: 14.0,
+  height: 1.172,
+);
+
+const textStyleAppBarTitle1 = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText4,
+  fontWeight: FontWeight.w500,
+  fontSize: 26.0,
+  height: 1.172,
+);
+
+const textStyleAppBarTitle2 = TextStyle(
   fontFamily: fontFamilyRoboto,
   color: colorText1,
-  fontWeight: FontWeight.w600,
-  fontSize: 18.0,
-  height: 1.2,
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+  height: 1.172,
+);
+
+const textStyleAlbumTitle = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText5,
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+  height: 1.172,
+);
+
+const textStyleAlbumSubtitle = TextStyle(
+  fontFamily: fontFamilyRoboto,
+  color: colorText6,
+  fontWeight: FontWeight.w400,
+  fontSize: 12.0,
+  height: 1.172,
 );
 
 abstract class CustomHttpHeader {
@@ -34,13 +79,24 @@ abstract class CustomHttpHeaderValue {
   static const app = "app";
 }
 
-abstract class LocalKey {
+abstract class LocalKeys {
   static const flavor = "flavor";
 }
 
-abstract class LocalValue {
+abstract class LocalValues {
   static const dev = "dev";
   static const prod = "prod";
+}
+
+abstract class MethodChannelX {
+  static const channelName = "photos";
+  static const methodGetAlbums = "getAlbums";
+  static const methodGetMedias = "getMedias";
+  static const methodGetAlbumThumbnail = "getAlbumThumbnail";
+  static const methodGetThumbnail = "getThumbnail";
+  static const methodGetMedium = "getMedium";
+  static const methodGetFile = "getFile";
+  static const methodCleanCache = "cleanCache";
 }
 
 abstract class Regex {

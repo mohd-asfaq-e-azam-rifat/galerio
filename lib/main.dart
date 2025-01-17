@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galerio/base/app_config/app_config_bloc.dart';
 import 'package:galerio/base/app_config/app_config_state.dart';
+import 'package:galerio/base/di/app_module.dart';
+import 'package:galerio/base/navigation/navigation.dart';
+import 'package:galerio/base/state/basic/basic_state.dart';
 import 'package:galerio/base/theme/light_theme.dart';
 import 'package:galerio/injection.dart';
 import 'package:galerio/routes/routes.dart';
@@ -37,7 +40,11 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocConsumer<AppConfigBloc, AppConfigState>(
         listener: (context, state) {
-          // TODO: We will put navigation logic here
+          if (state.authState.isAuthorized == true) {
+            appContext?.to(Routes.album, clearBackstack: true);
+          } else {
+            appContext?.to(Routes.requestPermission, clearBackstack: true);
+          }
         },
         builder: (context, state) {
           return MaterialApp(
@@ -46,6 +53,15 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: onGenerateRoute,
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
+            builder: (context, child) {
+              // Restrict device font size to override our app fonts
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: TextScaler.noScaling,
+                ),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
           );
         },
       ),
