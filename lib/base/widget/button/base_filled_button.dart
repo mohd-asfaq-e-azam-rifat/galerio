@@ -23,8 +23,8 @@ class BaseFilledButton extends StatelessWidget {
     this.backgroundColor = colorLightGreen,
     this.progressColor = colorText1,
     this.isLoading = false,
-    this.buttonWidth,
-    this.buttonHeight,
+    this.buttonWidth = double.maxFinite,
+    this.buttonHeight = 42.0,
     this.fontSize = 16.0,
     this.margin,
   });

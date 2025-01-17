@@ -4,9 +4,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galerio/injection.dart';
-import 'package:galerio/ui/album/album_page.dart';
-import 'package:galerio/ui/album_details/album_details_page.dart';
-import 'package:galerio/ui/photo_previewer/photo_previewer_page.dart';
+import 'package:galerio/ui/photo_gallery/album/album_page.dart';
+import 'package:galerio/ui/photo_gallery/album_details/album_details_page.dart';
+import 'package:galerio/ui/photo_gallery/photo_previewer/photo_previewer_page.dart';
 import 'package:galerio/ui/request_permission/request_permission_page.dart';
 import 'package:galerio/ui/splash_screen/splash_screen.dart';
 
