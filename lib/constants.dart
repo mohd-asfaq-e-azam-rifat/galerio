@@ -91,7 +91,12 @@ abstract class LocalValues {
 abstract class MethodChannelX {
   static const channelName = "photos";
   static const methodGetAlbums = "getAlbums";
+  static const methodGetMedias = "getMedias";
   static const methodGetAlbumThumbnail = "getAlbumThumbnail";
+  static const methodGetThumbnail = "getThumbnail";
+  static const methodGetMedium = "getMedium";
+  static const methodGetFile = "getFile";
+  static const methodCleanCache = "cleanCache";
 }
 
 abstract class Regex {
