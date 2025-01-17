@@ -79,13 +79,19 @@ abstract class CustomHttpHeaderValue {
   static const app = "app";
 }
 
-abstract class LocalKey {
+abstract class LocalKeys {
   static const flavor = "flavor";
 }
 
-abstract class LocalValue {
+abstract class LocalValues {
   static const dev = "dev";
   static const prod = "prod";
+}
+
+abstract class MethodChannelX {
+  static const channelName = "photos";
+  static const methodGetAlbums = "getAlbums";
+  static const methodGetAlbumThumbnail = "getAlbumThumbnail";
 }
 
 abstract class Regex {
