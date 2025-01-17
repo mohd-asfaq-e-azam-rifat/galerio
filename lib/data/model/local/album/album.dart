@@ -19,7 +19,12 @@ class Album {
   // Indicates whether this album contains all media.
   bool get isAllAlbum => id == "__ALL__";
 
-  Album();
+  Album({
+    this.id,
+    this.name,
+    this.isNewestOrder,
+    this.count,
+  });
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return _$AlbumFromJson(json);
