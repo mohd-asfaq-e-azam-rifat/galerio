@@ -14,7 +14,10 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
 
   PhotoBloc(this._photoRepository) : super(PhotoState()) {
     on<AlbumListRequested>(_onAlbumListRequested);
+    on<AlbumMediasRequested>(_onAlbumMediaListRequested);
     on<AlbumThumbnailRequested>(_onAlbumThumbnailRequested);
+    on<MediaThumbnailRequested>(_onMediaThumbnailRequested);
+    on<MediaDetailsRequested>(_onMediaDetailsRequested);
   }
 
   Future<void> _onAlbumListRequested(
@@ -32,7 +35,7 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
         emit(
           (state as AlbumListState).copyWith(
             uiState: UiState.successful,
-            thumbnail: albums,
+            albums: albums,
           ),
         );
       } else {
@@ -62,11 +65,92 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
         AlbumThumbnailState(uiState: UiState.loading),
       );
 
-      final thumbnail = await _photoRepository.getAlbumThumbnail(event.albumId);
+      final thumbnail = await _photoRepository.getAlbumThumbnail(
+        albumId: event.albumId,
+      );
 
       if (thumbnail != null) {
         emit(
           (state as AlbumThumbnailState).copyWith(
+            uiState: UiState.successful,
+            file: thumbnail,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            uiState: UiState.error,
+            message: "No thumbnail found",
+          ),
+        );
+      }
+    } on Exception catch (e) {
+      emit(
+        state.copyWith(
+          uiState: UiState.error,
+          message: e.getErrorMessage(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onAlbumMediaListRequested(
+    AlbumMediasRequested event,
+    Emitter<PhotoState> emit,
+  ) async {
+    try {
+      emit(
+        AlbumMediaListState(uiState: UiState.loading),
+      );
+
+      final mediaPage = await _photoRepository.getMedias(
+        album: event.album,
+        skip: event.skip,
+        take: event.take,
+      );
+
+      if (mediaPage != null) {
+        emit(
+          (state as AlbumMediaListState).copyWith(
+            uiState: UiState.successful,
+            page: mediaPage,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            uiState: UiState.error,
+            message: "No media found",
+          ),
+        );
+      }
+    } on Exception catch (e) {
+      emit(
+        state.copyWith(
+          uiState: UiState.error,
+          message: e.getErrorMessage(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onMediaThumbnailRequested(
+    MediaThumbnailRequested event,
+    Emitter<PhotoState> emit,
+  ) async {
+    try {
+      emit(
+        MediaThumbnailState(uiState: UiState.loading),
+      );
+
+      final thumbnail = await _photoRepository.getThumbnail(
+        mediumId: event.mediaId,
+        highQuality: false,
+      );
+
+      if (thumbnail != null) {
+        emit(
+          (state as MediaThumbnailState).copyWith(
             uiState: UiState.successful,
             thumbnail: thumbnail,
           ),
@@ -76,6 +160,44 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
           state.copyWith(
             uiState: UiState.error,
             message: "No thumbnail found",
+          ),
+        );
+      }
+    } on Exception catch (e) {
+      emit(
+        state.copyWith(
+          uiState: UiState.error,
+          message: e.getErrorMessage(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onMediaDetailsRequested(
+    MediaDetailsRequested event,
+    Emitter<PhotoState> emit,
+  ) async {
+    try {
+      emit(
+        MediaDetailsState(uiState: UiState.loading),
+      );
+
+      final file = await _photoRepository.getFile(
+        mediumId: event.mediaId,
+      );
+
+      if (file != null) {
+        emit(
+          (state as MediaDetailsState).copyWith(
+            uiState: UiState.successful,
+            file: file,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            uiState: UiState.error,
+            message: "No file found",
           ),
         );
       }

@@ -60,9 +60,9 @@ Future<_i174.GetIt> init(
   );
   gh.factory<_i361.Dio>(() => appModule.dioClient);
   gh.factory<_i21.DebounceHelper>(() => _i21.DebounceHelper());
+  gh.factory<_i781.DateTimeHelper>(() => _i781.DateTimeHelper());
   gh.factory<_i1040.PhotoLocalService>(() => _i1040.PhotoLocalService());
   gh.factory<_i871.PhotoRemoteService>(() => _i871.PhotoRemoteService());
-  gh.factory<_i781.DateTimeHelper>(() => _i781.DateTimeHelper());
   gh.factory<_i732.PhotoRepository>(() => _i732.PhotoRepository(
         gh<_i1040.PhotoLocalService>(),
         gh<_i871.PhotoRemoteService>(),

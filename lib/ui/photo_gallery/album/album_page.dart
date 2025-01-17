@@ -106,8 +106,13 @@ class AlbumWidget extends StatelessWidget {
     return BlocProvider(
       create: (context) => _getBloc(context),
       child: GestureDetector(
-        onTap: () {
-          context.to(Routes.albumDetails);
+        onTap: () async {
+          context.to(
+            Routes.albumDetails,
+            arguments: [
+              item,
+            ],
+          );
         },
         child: BlocBuilder<PhotoBloc, PhotoState>(
           builder: (context, state) {

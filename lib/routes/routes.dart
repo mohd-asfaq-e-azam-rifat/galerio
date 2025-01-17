@@ -3,6 +3,8 @@ import 'dart:core';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:galerio/data/model/local/album/album.dart';
+import 'package:galerio/data/model/local/medium/medium.dart';
 import 'package:galerio/injection.dart';
 import 'package:galerio/ui/photo_gallery/album/album_page.dart';
 import 'package:galerio/ui/photo_gallery/album_details/album_details_page.dart';
@@ -75,13 +77,19 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
 
     case Routes.albumDetails:
+      final arguments = settings.arguments as List<dynamic>;
       return buildRoute(
-        builder: (_) => const AlbumDetailsPage(),
+        builder: (_) => AlbumDetailsPage(
+          album: arguments[0] as Album,
+        ),
       );
 
     case Routes.photoPreviewer:
+      final arguments = settings.arguments as List<dynamic>;
       return buildRoute(
-        builder: (_) => const PhotoPreviewerPage(),
+        builder: (_) => PhotoPreviewerPage(
+          item: arguments[0] as Medium,
+        ),
       );
 
     default:
