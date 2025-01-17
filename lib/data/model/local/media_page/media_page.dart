@@ -15,6 +15,8 @@ class MediaPage {
 
   bool get isLast => end >= (album.count ?? 0);
 
+  MediaPage(this.album, this.start, this.items, this.lightWeight);
+
   MediaPage.fromJson(this.album, dynamic json, {this.lightWeight})
       : start = json['start'] ?? 0,
         items = json['items'].map<Medium>((x) => Medium.fromJson(x)).toList();
